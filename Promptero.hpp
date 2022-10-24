@@ -1,7 +1,7 @@
 /*
 Version 1
 Promptero -- By Cactical.
-Promptero is a header file that has tons of functions that come together to make a C++ Prompt that you can integrate into your program or project, those functions include commands that can be run from the prompt (the infocommand and versioncommmand), processes that handle everything (the master process and ), and funcs which 
+Promptero is a header file that has tons of functions that come together to make a C++ Prompt that you can integrate into your program or project. These functions include commands that can be run from the prompt (ex. infocommand and versioncommmand), processes that handle everything (ex. the master process and the prompt process), and funcs which make up the processes (ex. ).
 XXXX = your program that will be using Promptero.
 To use this with a c++ file, put #include <iostream> + <signal.h> + "Promptero.hpp", and any other header files that a command, func, process, etc in here uses, then call the activate() function in XXXX to start Promptero.
 When adding a custom command, put it in according to the documentation (documentation link here), or put #include "yourheaderfile.h" in this file and then put your custom command in yourheaderfile.h according to the documentation.
@@ -9,7 +9,7 @@ To modify, just change all traces of XXXX to the name of your program or project
 
 Made with love :)
 
-Process Tree
+Process Tree + Notes on how it should be written
 
 A process is a function that is very important and is needed (and contains things that are needed) for Promptero to work.
 The master process is the process that the entire process tree runs in.
