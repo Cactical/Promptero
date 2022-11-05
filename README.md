@@ -1,7 +1,7 @@
 # Promptero
 
 Promptero is a header file that has tons of functions that come together to make a C++ Prompt that you can integrate into your program or project, there are multiple types of functions that make up Promptero. 
-There are commands that the user can run from the userprompt (ex. the info command and the version command).
+There are cmds which are commands that the user can run from the userprompt (ex. the info command and the version command).
 There are processes that handle everything (the master process and the prompt process).
 There are also funcs which make up other important functions.
 
@@ -36,6 +36,6 @@ When modifying Promptero for use with your program, You should never add a secon
 
 A func is a function that is run from a process and is usually necessary for Promptero.
 
-A command is a function that the user can ask Promptero to run.
+A cmd is a function that the user can ask Promptero to run.
 
 For more info, please see the comments in Promptero.
