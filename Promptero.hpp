@@ -1,5 +1,5 @@
 /*
-Version 1
+Version 1.1
 Promptero -- By Cactical.
 Promptero is a header file that has tons of functions that come together to make a C++ Prompt that you can integrate into your program or project. These functions include commands that can be run from the prompt (ex. infocommand and versioncommmand), processes that handle everything (ex. the master process and the prompt process), and funcs which make up other important functions (ex. ).
 XXXX = your program that will be using Promptero.
@@ -20,18 +20,19 @@ A func is a function that is run from a process and is usually necessary for Pro
 A command is a function that the user can ask Promptero to run, it is run from /userinputhandler\.
 For the name of the master/prompt process or a func/command, /name\
 For a descriptor [descripter] (descripter: [master process], [prompt process], [func], [command])
-For a flag, <flag> (flags: <can throw xerrors>, <can run yon>)
+For a flag, <flag> (flags: <can run x>, <can run yon>, <repeats forever>)
 For a note, (note)
 For 2 notes, (note) {note}
 
 /master\ [master process] <repeats forever> (runs userprompthandler and x after userprompthandler finishes)
-|___/userprompthandler\ [prompt process] (will never need to be directly run and is automatically run forever)
-|   |___/userprompt\ [func] saves input from the user to be used later (can be run whenever a command needs input from user, ex. a command is asking the user to type something to name a file)
-|   |___/userinputhandler\ [Func] <can throw xerrors> graps input from the user (will never need to be directly run, userprompthandler does that for you) 
-|   |   |___/.command\ [command] <can throw xerrors> <can run yon> any command that can be run in XXXX, ex. mkfilecmd (will never need to be directly run, userinputhandler does that for you) {the "." can be the name of any command, ex. version or info}
-|   |   |
-|   |___/yon\ [Func] <can throw xerrort1s1 (invalid option)> asks the user "yes" or "no" and saves and refines their input to be used later (can be run whenever a command asks the user a yes or no question ex. if the users want to end XXXX or not) {userinputhandler can run yon and XXXX can be returned back to userinputhandler once yon is done running}
-|___/x\ [Func] catches xerrors and xoutputs and decides what to with them, ex. telling the user about them (will never need to be directly run, master does that for you)
+|____/userprompthandler\ [prompt process] (will never need to be directly run and is automatically run forever)
+|    |___/userprompt\ [func] saves input from the user to be used later (can be run whenever a command needs input from user, ex. a command is asking the user to type something to name a file)
+|    |___/userinputhandler\ [Func] <can run x> graps input from the user (will never need to be directly run, userprompthandler does that for you) 
+|        |___/.command\ [command] <can run x> <can run yon> any command that can be run in XXXX, ex. infoccommand (will never need to be directly run, userinputhandler does that for you) {the "." can be the name of any command, ex. version or info}
+|        |   |
+|        /yon\ [Func] <can throw xerrort1s1 (invalid option)> asks the user "yes" or "no" and saves and refines their input to be used later (can be run whenever a command asks the user a yes or no question ex. if the users want to end XXXX or not) {userinputhandler can run yon and XXXX can be returned back to userinputhandler once yon is done running}
+|        |
+|______/x\ [Func] catches xerrors and xoutputs and decides what to with them, ex. telling the user about them (will never need to be directly run, master does that for you)
 
 */
 
@@ -115,9 +116,9 @@ void examplecommand();
 
 /* signalhandler func. Handles the sigint signal. (uses signal.h)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-If the user does ctrl+c (sigint) this func will start and it will tell them to use the endprgm (not completely working yet). */
+If the user does ctrl+c (sigint) this func will start and it will tell them to use the endcommand (not completely working yet). */
 void signalhandler(int signum) {
-   std::cout << "\nPlease use the endprgm, \"end.\" U: ";
+   std::cout << "\nPlease use the endcommand, \"end.\" U: ";
 }
 
 /* activate func. Activates Promptero.
@@ -178,7 +179,7 @@ void userinputhandler() {
         if (userinput == "") {
             xERRORt1 = false;
         } else {
-            // Throw "Invalid prgm" error
+            // Throw "Invalid command" error
             xERRORt1 = true;
         }
     }
@@ -207,7 +208,7 @@ void x() {
 }
 
 
-/* yon func. Asks the user yes or no whenever a func or command asks the user a question that can be answered with yes or no. 
+/* yon (yes or no) func. Asks the user yes or no whenever a func or command asks the user a question that can be answered with yes or no. 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Asks user yes or no and runs userprompt so the user can answer, then it takes what the user said and maps it to a var, then refine that var and decide what to do with the refined var. */
 void yon() {
