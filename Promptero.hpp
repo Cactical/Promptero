@@ -11,6 +11,7 @@ Made with love :)
 
 Process Tree + Notes on how it should be written
 
+The process tree is started from the activate func.
 A process is a function that is very important and is needed (and contains things that are needed) for Promptero to work.
 The master process is the process that the entire process tree runs in.
 The prompt process is the process the prompt runs in.
@@ -38,7 +39,7 @@ For 2 notes, (note) {note}
 
 // #### global variable settings >>>>
 
-/* activateswitch var. A switch that controls if activate() will run when being called (on state) or not (off state).
+/* activateswitch var. A switch that controls if activate() will run when being called (true, on state) or not (false, off state).
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 This var is effectively a switch that controls whether activate will be on (activate will run) or off (activate wont run). Once activate() is called in the XXXX file, control will be passed to Promptero and Promptero wil be in control forever, but you can return control to XXXX by making activateswitch false in the XXXX file, then control will return to the XXXX file. You can also return control to Promptero by simply making activateswitch true and then calling activate() to start up Promptero again. */
 bool activateswitch = true;
@@ -48,10 +49,10 @@ bool activateswitch = true;
 When userprompt is called, the user types something and whatever they type becomes userinput and userinputhandler decides what to do with userinput. */
 std::string userinput;
 
-/* yoninputrefined var. Refined version of yoninput var.
+/* yoninput var. Refined version of yoninput var.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 XXXX takes the yoninput var (only specified in the yon func) and refines it and maps the refined version to this var.*/
-std::string yoninputrefined;
+std::string yoninput;
 
 // #### x error and output settings >>>>
 
@@ -166,9 +167,9 @@ void userinputhandler() {
     }  else if (userinput == "end") {
         std::cout << "Are you sure you want to end?";
         yon();
-        if (yoninputrefined == "Y") {
+        if (yoninput == "Y") {
             endcommand();
-        } else if (yoninputrefined == "N") {
+        } else if (yoninput == "N") {
             // Throw "command cancelled" output
             xOUTPUTt1 = true;
         }
@@ -212,37 +213,24 @@ void x() {
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Asks user yes or no and runs userprompt so the user can answer, then it takes what the user said and maps it to a var, then refine that var and decide what to do with the refined var. */
 void yon() {
-    // (yon func var) | Input yon takes from the user, yon takes the input from userinput and maps it to variable called yoninput
-    std::string yoninput;
+    
     std::cout << " (Y/N) \n";
     std::cout << "\\___ ";
     userprompt();
-    yoninput = userinput;
 
-    if (yoninput == "Y") {
-        yoninputrefined = "Y";
-    } else if (yoninput == "y") {
-        yoninputrefined = "Y";   
-    } else if (yoninput == "Yes") {
-        yoninputrefined = "Y";   
-    } else if (yoninput == "yes") {
-        yoninputrefined = "Y";   
-    } else if (yoninput == "YES") {
-        yoninputrefined = "Y";
-    } else if (yoninput == "N") {
-        yoninputrefined = "N";   
-    } else if (yoninput == "n") {
-        yoninputrefined = "N";
-    } else if (yoninput == "No") {
-        yoninputrefined = "N";  
-    } else if (yoninput == "no") {
-        yoninputrefined = "N";
-    } else if (yoninput == "NO") {
-        yoninputrefined = "N";
+    if (userinput == "Y" || userinput == "y" || userinput == "Yes" || userinput == "yes" || userinput == "YES") {
+        
+        yoninput = "Y";
+
+    } else if (userinput == "N" || userinput == "n" || userinput == "No" || userinput == "no" || userinput == "NO") {
+
+        yoninput = "N";   
+
     } else {
         xERRORt1s1 = true;
         x();
     }
+    
 }
 /* Info command. Displays info about XXXX.
 -----------------------------------------------------------
